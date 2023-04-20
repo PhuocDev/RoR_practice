@@ -1,0 +1,6 @@
+<h1> Showing article details </h1>
+<p>Title: <%= @article.title %> </p>
+<p>Description:   <%= @article.description %> </p>
+<p>Written by:   <%= @article.user.username  if @article.user %> </p>
+<button> <%= link_to 'Back', '/articles', method: :get %> </button>
+

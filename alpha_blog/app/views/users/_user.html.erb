@@ -1,0 +1,14 @@
+<div id="<%= dom_id user %>">
+  <p>
+    <strong>Username:</strong>
+    <%= user.username %> <br>
+    <strong>Email:</strong>
+    <%= (user.email != nil) ? user.email : 'null' %> <br>
+    <% if logged_in? and user == current_user || current_user.admin?  %>
+      <strong>Password </strong>  (not for show):
+      <%= (user.password_digest != nil) ? user.password_digest : 'null' %>
+    <% end %>
+
+  </p>
+
+</div>

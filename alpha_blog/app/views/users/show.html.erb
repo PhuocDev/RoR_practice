@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @user %>
+
+<div>
+  <%= link_to "Back to users list", users_path %> |
+  <% if logged_in? and @user == current_user || current_user.admin? %>
+    <%= link_to "Edit your profile", edit_user_path(@user) %>
+    <%= button_to "Destroy this user", @user, method: :delete %>
+  <% end %>
+</div>
+
+<h1> All articles of this user </h1>
+<%= render 'articles/article' %>

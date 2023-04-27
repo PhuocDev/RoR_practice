@@ -1,0 +1,69 @@
+<h1>Portfolio of user<%=  %></h1>
+
+
+<div class='search-area m-4 p-4'>
+    <h3>Search stock </h3>
+    <%= form_tag search_stock_path, remote: true, method: :get do %>
+    <div class="form-group row">
+      <div class="col-sm-9 no-right-padding">
+        <%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker symbol", autofocus: true, class: "form-control form-control-lg" %>
+      </div>
+      <div class="col-sm-3">
+        <%= button_tag type: :submit, class: "btn btn-success" do %>
+          Search
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @stock %>
+    <div class='card card-header d-inline-block mb-3'>
+        <strong>Symbol: </strong> <%= @stock.ticker%>
+        <strong>Name: </strong> <%= @stock.name%>
+        <strong>Price: </strong> <%= @stock.last_price%>
+        <% if (!current_user.stocks.include?(@stock)) %>
+        <%= link_to 'Add to portfolio', user_stocks_path(user: current_user, ticker: @stock.ticker, last_price: @stock.last_price ),
+                                    class: "btn btn-sm btn-success", method: :post %>
+        <% else %>
+         <%= link_to 'Tracked', class: "btn btn-sm btn-danger " %>
+        <% end %>
+    </div>
+  <% end %>
+  <% if @tracked_stocks != nil%>
+    <div class="row">
+        <div class="col-9">
+            <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Ticker</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @tracked_stocks.each do |stock| %>
+                <tr>
+                    <th scope="row"><%= stock.ticker %></th>
+                    <td><%= stock.name %></td>
+                    <td><%= stock.last_price %>$</td>
+                    <td>
+                        <% if (!current_user.stocks.include?(stock)) %>
+                        <%= link_to 'Add to portfolio', user_stocks_path(user: current_user, ticker: stock.ticker, last_price: stock.last_price ),
+                                                    class: "btn btn-sm btn-success", method: :post %>
+                        <% else %>
+                        <%= link_to 'Tracked', '#', class: "btn btn-sm btn-danger disable" %>
+                        <% end %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+            </table>
+        </div>
+        </div>
+
+  <% end %>
+</div>
+
+
+
+

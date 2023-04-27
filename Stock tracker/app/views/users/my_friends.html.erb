@@ -1,0 +1,36 @@
+
+
+<div class='search-area m-4 p-4'>
+    <h3>Search friends </h3>
+    <%= form_tag search_friend_path, remote: true, method: :get do %>
+    <div class="form-group row">
+      <div class="col-sm-9 no-right-padding">
+        <%= text_field_tag :friend, params[:friend], placeholder: "Email", autofocus: true, class: "form-control form-control-lg" %>
+      </div>
+      <div class="col-sm-3">
+        <%= button_tag type: :submit, class: "btn btn-success" do %>
+          Search
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @friend %>
+    <div class='card card-header d-inline-block mb-3'>
+        <strong>Email: </strong> <%= @friend.email%>
+        <% if (!current_user.friends.include?(@friend) ) %>
+        <%= button_to 'Follow',
+            my_friends_path(friend_id: @friend.id),
+            class: "btn btn-sm btn-success", method: :post %>
+        <% elsif current_user.email.to_s == @friend.email.to_s %>
+          <%= link_to 'You cannot follow yourself', '#', class: "btn btn-sm btn-danger disabled " %>
+        <% else %>
+         <%= link_to 'Followed', '#', class: "btn btn-sm btn-danger disabled " %>
+        <% end %>
+    </div>
+  <% end %>
+
+  <% if !@friends.empty? %>
+    <%= render 'friends/list' %>
+  <% end %>
+
+</div>

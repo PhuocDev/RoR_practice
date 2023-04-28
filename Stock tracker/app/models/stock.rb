@@ -31,6 +31,6 @@ class Stock < ApplicationRecord
   end
 
   def view
-
+    
   end
 end

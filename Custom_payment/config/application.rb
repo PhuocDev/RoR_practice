@@ -2,6 +2,22 @@ require_relative "boot"
 
 require "rails/all"
 
+
+require "cloudinary"
+require "cloudinary/uploader"
+require "cloudinary/utils"
+require "cloudinary/api"
+
+# Initialize Cloudinary
+Cloudinary.config do |config|
+  config.cloud_name = "df9darxqy"
+  config.api_key = "551716779532162"
+  config.api_secret = "86wkw8W7aRHTS4m840-eB5a7Dmo"
+  config.secure = true
+  config.cdn_subdomain = true
+end
+
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

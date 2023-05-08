@@ -19,6 +19,8 @@ gem 'fog-aws'
 gem 'cloudinary'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'cancancan'
+gem 'will_paginate'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"

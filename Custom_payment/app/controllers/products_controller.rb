@@ -24,6 +24,7 @@ class ProductsController < ApplicationController
   def create
 
     @product = Product.new(product_params)
+    @product.user_id = current_user.id
     image_url = Cloudinary::Uploader.upload(params[:product][:image])["url"]
     # puts image_url
     @product.image = image_url
@@ -41,6 +42,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1 or /products/1.json
   def update
     @product = Product.find(params[:id])
+    @product.user = current_user
     image_url = Cloudinary::Uploader.upload(params[:product][:image])["url"]
     if image_url != nil
       puts '----------> ' + image_url

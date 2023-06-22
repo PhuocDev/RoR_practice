@@ -1,42 +1,6 @@
 <% if current_user %>
   <h3>Welcome: <%= current_user.email %></h3>
 <% else %>
-  <div class="row">
-    <div class="plans clearfix">
-      <div class="col-lg-3 col-lg-offset-3 plan">
-        <h2>Premium Plan</h2>
-        <div class="price">
-          Price: $10
-        </div>
-        <div class="features">
-          <ul>
-            <li>Unlimited Image Uploads</li>
-            <li>Responsive design</li>
-            <li>Access anywhere</li>
-            <li>Money back guarantee</li>
-          </ul>
-        </div>
-        <p>
-          <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary sign-up' %>
-        </p>
-      </div>
-      <div class="col-lg-3 plan">
-        <h2>Amaze Plan</h2>
-        <div class="price ">
-          Price: $20
-        </div>
-        <div class="features">
-          <ul>
-            <li>Unlimited Image Uploads</li>
-            <li>Responsive design</li>
-            <li>Access anywhere</li>
-            <li class='extra'>Unlimited projects</li>
-          </ul>
-        </div>
-        <p>
-          <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary sign-up' %>
-        </p>
-      </div>
-    </div>
-  </div>
+  <h1> Xin chào, đây là một simple webapp được tạo bằng Ruby on Rails </h1>
+  <h5> Đây là giao diện hiển thị khi người dùng chưa đăng nhập vào trang web</h5>
 <% end %>

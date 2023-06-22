@@ -7,7 +7,6 @@ require "cloudinary"
 require "cloudinary/uploader"
 require "cloudinary/utils"
 require "cloudinary/api"
-
 # Initialize Cloudinary
 Cloudinary.config do |config|
   config.cloud_name = "df9darxqy"
@@ -26,6 +25,9 @@ module CustomPayment
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+
+    config.action_view.sanitized_allowed_tags = ['strong', 'em', 'a', 'p', 'img', 'ul', 'ol', 'li', 'br']
+    config.action_view.sanitized_allowed_attributes = ['href', 'title', 'src', 'alt', 'class']
 
     # Configuration for the application, engines, and railties goes here.
     #

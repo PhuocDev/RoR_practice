@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :posts
   namespace :admin do
     get 'users/index'
   end
@@ -8,7 +9,9 @@ Rails.application.routes.draw do
   devise_for :users
   root "welcome#index"
   get '/dashboard', to: 'dashboard#index'
-
+  get '/mytodo', to: 'todos#mytodo'
+  get '/update_completed', to:  'todos#update_completed'
+  post '/posts/upload_image', to: 'posts#upload_image'
   namespace :admin do
     resources :users
   end

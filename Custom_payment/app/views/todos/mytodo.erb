@@ -1,0 +1,59 @@
+<%- model_class = Todo -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+
+<%= form_tag todos_path, method: :get do %>
+  <%= label_tag :order, "Sort by:" %>
+  <%= select_tag :order, options_for_select([["Name Ascending", "name_asc"], ["Name Descending", "name_desc"], ["Id Descending", "id_desc"], ["Date Descending", "date_desc"]]), include_blank: true %>
+  <%= label_tag :search, "Search by Name:" %>
+  <%= text_field_tag :search %>
+  <%= submit_tag "Filter" %>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:completed) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @todos.each do |todo| %>
+      <tr>
+        <td><%= link_to todo.id, todo_path(todo) %></td>
+        <td><%= todo.name %></td>
+        <td><%= todo.completed %></td>
+        <td><%=l todo.created_at, format: '%d/%m/%Y %H:%M:%S' %></td>
+        <td>
+
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      todo_path(todo), :class => 'btn btn-default btn-xs' %>
+          <% if (current_user.id == todo.user_id) %>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_todo_path(todo), :class => 'btn btn-default btn-xs' %>
+
+
+          <% end %>
+          <% if (current_user.id == todo.user_id || current_user.role == 'admin') %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      todo_path(todo),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="flickr_pagination mb-4" style="margin:20px">
+  <%= will_paginate @todos, :container => false %>
+</div>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_todo_path,
+            :class => 'btn btn-primary' %>
